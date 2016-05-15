@@ -2,6 +2,10 @@
 #include "ui_mainwindow.h"
 #include "taikopage.h"
 #include <QTimer>
+#include <QKeyEvent>
+#include <iostream>
+#include <QDebug>
+//#include <QSound>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -30,10 +34,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //set start event, click and start to play
     connect(btn_start,SIGNAL(clicked(bool)),this,SLOT(clock()));
-    connect(btn_start,SIGNAL(clicked(bool)),taiko,SLOT(Start(bool)));
+    connect(btn_start,SIGNAL(clicked(bool)),taiko,SLOT(Start()));
     connect(btn_start,SIGNAL(clicked(bool)),btn_start,SLOT(hide()));
     connect(btn_start,SIGNAL(clicked(bool)),btn_exit,SLOT(hide()));
-    connect(btn_start,SIGNAL(clicked(bool)),taiko,SLOT(SetKeyMove(bool)));
+    connect(btn_start,SIGNAL(clicked(bool)),taiko,SLOT(SetKeyMove()));
+
+    /*keypressevent
+    W = new QKeyEvent();
+    if(W->key()== Qt::Key_W)
+        std::cout<<"OK!!!"<<std::endl;*/
+    keypressevent(keyevent);
+
+    //set music
+    //bgm = new QSound(":/new/img/Music.wav");
+    //bgm->play();
+
 
 
 
@@ -73,6 +88,27 @@ void MainWindow::timer_timeout()
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::keypressevent(QKeyEvent *keyevent)
+{
+    switch(keyevent->key())
+    {
+    case Qt::Key_W:
+        std::cout<<"OK!!!"<<std::endl;
+        qDebug() << "you had key W!!!!";
+        break;
+    case Qt::Key_A:
+
+        break;
+    case Qt::Key_D:
+
+        break;
+    case Qt::Key_S:
+
+        break;
+
+    }
 }
 
 

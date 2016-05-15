@@ -25,17 +25,16 @@ signals:
     void send();
     void sendKey();
 public slots:
-    void Start(bool phase);
-    void SetKeyMove(bool key);
+    void Start();
+    void SetKeyMove();
     void movekey();
-    void waitforappear();
 private:
     QPushButton *W;
     QWidget *mainpointer;
-    Key *item[4];
+    Key *item[15];
     Key *item2;
-    int showtime;
     int keytime; //when the key should show
+    int showtime[15];
 
 private slots:
     void key_timeout();

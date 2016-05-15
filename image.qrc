@@ -9,5 +9,7 @@
         <file>start-01.png</file>
         <file>Title.jpg</file>
         <file>w-01.jpg</file>
+        <file>Music.wav</file>
+        <file>score.jpg</file>
     </qresource>
 </RCC>

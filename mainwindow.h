@@ -1,12 +1,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+//#include <QSound>
 #include <QMainWindow>
 #include <taikopage.h>
 #include <QPushButton>
 #include <QApplication>
 #include <QFont>
 #include <QGraphicsTextItem>
+#include <QKeyEvent>
+
 
 namespace Ui {
 class MainWindow;
@@ -29,6 +31,11 @@ private:
     QGraphicsTextItem *clocktext;
     QFont *clockfont;
     int clocknumber;
+    void keypressevent(QKeyEvent * keyevent);
+    QKeyEvent *W;
+    QKeyEvent *keyevent;
+    //QSound *bgm;
+
 private slots:
     void timer_timeout();
     void clock();

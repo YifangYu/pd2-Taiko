@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     taikopage.cpp \
-    key.cpp
+    key.cpp \
+    score.cpp
 
 HEADERS  += mainwindow.h \
     taikopage.h \
-    key.h
+    key.h \
+    score.h
 
 FORMS    += mainwindow.ui
 
