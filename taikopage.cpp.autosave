@@ -27,25 +27,21 @@ void taikopage::keyPressEvent(QKeyEvent *event)
         case Qt::Key_W:
             if(check_if_hit()==1)
             score++;
-            qDebug()<<score;
         break;
 
         case Qt::Key_A:
             if(check_if_hit()==2)
             score++;
-            qDebug()<<score;
         break;
 
         case Qt::Key_D:
             if(check_if_hit()==3)
             score++;
-            qDebug()<<score;
         break;
 
         case Qt::Key_S:
             if(check_if_hit()==0)
             score++;
-            qDebug()<<score;
         break;
     }
 }
@@ -55,7 +51,7 @@ int taikopage::check_if_hit()
 QList<QGraphicsItem *> hit_list = this->collidingItems(hitpoint);
     foreach (QGraphicsItem *i, hit_list) {
         Key *ifhit = dynamic_cast<Key *>(i);
-        if(ifhit->X_pos < 220 && ifhit->X_pos > 190)
+        if(ifhit->X_pos < 230 && ifhit->X_pos > 190)
             if(ifhit->type==1)
             {
                 return 1;

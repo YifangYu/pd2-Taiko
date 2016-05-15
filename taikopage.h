@@ -10,6 +10,9 @@
 #include <cstdlib>
 #include <unistd.h>
 #include <time.h>
+#include <QDebug>
+#include <QKeyEvent>
+#include <QList>
 #include "key.h"
 
 
@@ -20,10 +23,14 @@ public:
     taikopage(QWidget *parent);
     QTimer *forshowtime;  //foe ket to show
     QTimer *timer; //for key move
+    void setHitpoint();
+    void keyPressEvent(QKeyEvent *event);
+    int score = 0;
+    int check_if_hit();
 
 signals:
     void send();
-    void sendKey();
+
 public slots:
     void Start();
     void SetKeyMove();
@@ -31,10 +38,14 @@ public slots:
 private:
     QPushButton *W;
     QWidget *mainpointer;
-    Key *item[15];
-    Key *item2;
+    Key *item[50];
+    Key *hitpoint;
+    Key *ifhit;
+    Key *test;
+
     int keytime; //when the key should show
-    int showtime[15];
+    int showtime[50];
+    int keypattern[50]; //record the WASD
 
 private slots:
     void key_timeout();

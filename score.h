@@ -9,7 +9,7 @@ class score : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    score(QWidget *parent);
+    score();
     QWidget *mainpointer;
 
 };

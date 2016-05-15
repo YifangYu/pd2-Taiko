@@ -8,6 +8,7 @@ public:
     Key(int randomcase);
     int X_pos;
     int randomcase;
+    int type;
 
 private slots:
 

@@ -2,9 +2,6 @@
 #include "ui_mainwindow.h"
 #include "taikopage.h"
 #include <QTimer>
-#include <QKeyEvent>
-#include <iostream>
-#include <QDebug>
 //#include <QSound>
 
 
@@ -43,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     W = new QKeyEvent();
     if(W->key()== Qt::Key_W)
         std::cout<<"OK!!!"<<std::endl;*/
-    keypressevent(keyevent);
+
 
     //set music
     //bgm = new QSound(":/new/img/Music.wav");
@@ -81,7 +78,12 @@ void MainWindow::timer_timeout()
     clocktext->setPlainText(clocknumbertext);
     clocknumber--;
     if(clocknumber==-2)
-        this->close();
+    {
+        QImage scorepage;
+        scorepage.load(":/new/img/score.jpg");
+        scorepage = bg.scaled(768,576);
+        this->setBackgroundBrush(scorepage);
+    }
     update();
 }
 
@@ -90,26 +92,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::keypressevent(QKeyEvent *keyevent)
+
+
+void MainWindow::check_if_hit()
 {
-    switch(keyevent->key())
-    {
-    case Qt::Key_W:
-        std::cout<<"OK!!!"<<std::endl;
-        qDebug() << "you had key W!!!!";
-        break;
-    case Qt::Key_A:
 
-        break;
-    case Qt::Key_D:
-
-        break;
-    case Qt::Key_S:
-
-        break;
-
-    }
 }
-
-
 

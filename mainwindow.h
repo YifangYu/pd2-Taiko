@@ -23,6 +23,10 @@ public:
     ~MainWindow();
     QTimer *countdowntimer;
 
+
+public slots:
+    void check_if_hit();
+
 private:
     Ui::MainWindow *ui;
     taikopage *taiko;
@@ -31,7 +35,6 @@ private:
     QGraphicsTextItem *clocktext;
     QFont *clockfont;
     int clocknumber;
-    void keypressevent(QKeyEvent * keyevent);
     QKeyEvent *W;
     QKeyEvent *keyevent;
     //QSound *bgm;
