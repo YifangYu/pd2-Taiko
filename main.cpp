@@ -10,9 +10,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
     w.setWindowTitle("Takio by YifangYu");
-    //w.setWindowIcon(QIcon(":/new/img/red.jpg"));
+    w.setWindowIcon(QIcon(":/new/img/red.jpg"));
     w.show();
-
 
     return a.exec();
 }

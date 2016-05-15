@@ -14,6 +14,7 @@
 #include <QKeyEvent>
 #include <QList>
 #include "key.h"
+#include <QSound>
 
 
 class taikopage : public QGraphicsScene
@@ -30,6 +31,7 @@ public:
     Key *hitpoint;
 
 
+
 signals:
     void send();
 
@@ -43,6 +45,7 @@ private:
     Key *item[50];
     Key *ifhit;
     Key *test;
+
 
     int keytime; //when the key should show
     int showtime[50];

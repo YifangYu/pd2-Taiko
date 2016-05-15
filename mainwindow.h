@@ -24,6 +24,7 @@ public:
     ~MainWindow();
     QTimer *countdowntimer;
 
+
 private:
     Ui::MainWindow *ui;
     taikopage *taiko;
@@ -45,6 +46,8 @@ private:
 private slots:
     void timer_timeout();
     void clock();
+    void hidescore();
+    void on_click_restart();
 
 };
 

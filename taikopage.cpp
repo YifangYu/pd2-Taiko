@@ -82,18 +82,20 @@ void taikopage::Start()
 
  void taikopage::SetKeyMove(){
     setHitpoint();
-    srand (time(NULL));
+    score = 0;
+    keytime = 0;
+    timer = new QTimer(mainpointer);
     for (int i=0;i<50;i++){
             int randomcase = rand ()%4;
             keypattern[i]=randomcase;
             item[i] = new Key(randomcase);
             addItem(item[i]);
-            timer = new QTimer(mainpointer);
-            int position =15+ rand () % 50;
+            int position = 15+ rand () % 50;
             if (i==0)
                 showtime[i]=position;
             else
                 showtime[i]=showtime[i-1]+position;
+            //qDebug() << showtime[i];
     }
     connect(timer,SIGNAL(timeout()),this,SLOT(movekey()));
     connect(timer,SIGNAL(timeout()),this,SLOT(key_timeout()));
@@ -101,6 +103,7 @@ void taikopage::Start()
  }
 
 void taikopage::movekey(){
+    qDebug()<<keytime;
     for (int i=0;i<50;i++){
         if(item[i]!=NULL)
         {
@@ -111,13 +114,16 @@ void taikopage::movekey(){
                 if(item[i]->X_pos <198)
                 {
                     this->removeItem(item[i]);
+                    delete item[i];
                     item[i]=NULL;
                 }
             }
-            else if(keytime>250)
+            else if(keytime>850)
             {
                 this->removeItem(item[i]);
+                delete item[i];
                 item[i]=NULL;
+
             }
         }
     }

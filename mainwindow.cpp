@@ -4,7 +4,6 @@
 #include <QTimer>
 #include <QSound>
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -54,21 +53,31 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::clock()
 {
     //set time
-    clocknumber = 10;
+    clocknumber = 30;
     clockfont = new QFont;
     clockfont->setFamily("Calibri");
     clockfont->setPixelSize(50);
     countdowntimer = new QTimer(this);
     countdowntimer->setInterval(1000);
 
-        clocktext = new QGraphicsTextItem;
-        clocktext->setPos(34,141);
-        clocktext->adjustSize();
-        clocktext->setFont(*clockfont);
+    clocktext = new QGraphicsTextItem;
+    clocktext->setPos(34,141);
+    clocktext->adjustSize();
+    clocktext->setFont(*clockfont);
 
     taiko->addItem(clocktext);
     connect(countdowntimer,SIGNAL(timeout()),this,SLOT(timer_timeout()));
     countdowntimer->start();
+}
+
+void MainWindow::hidescore()
+{
+    taiko->removeItem(playscore);
+}
+
+void MainWindow::on_click_restart()
+{
+    bgm->play();
 }
 
 void MainWindow::timer_timeout()
@@ -79,13 +88,21 @@ void MainWindow::timer_timeout()
     clocknumber--;
     if(clocknumber==-2)
     {
+        //load score page
         QImage scorepage;
         scorepage.load(":/new/img/score.jpg");
         scorepage = scorepage.scaled(768,576);
         taiko->setBackgroundBrush(scorepage);
+
+        //stop clock
+        countdowntimer->stop();
+        delete countdowntimer;
+        taiko->timer->stop();
+        delete taiko->timer;
+
+        //remove hitpoint
         taiko->removeItem(taiko->hitpoint);
         taiko->hitpoint = NULL;
-
 
         //set exit
         btn_exit2 = new QPushButton(this);
@@ -94,12 +111,21 @@ void MainWindow::timer_timeout()
         btn_exit2->setIconSize(QSize(100,40));
         connect(btn_exit2,SIGNAL(clicked()),QApplication::instance(),SLOT(quit()));
         btn_exit2->show();
+
         //set restart
         btn_restart = new QPushButton(this);
         btn_restart->setGeometry(350,25,100,40);
         btn_restart->setIcon(QIcon(":/new/img/restart-01.png"));
         btn_restart->setIconSize(QSize(100,40));
         btn_restart->show();
+        connect(btn_restart,SIGNAL(clicked(bool)),btn_restart,SLOT(hide()));
+        connect(btn_restart,SIGNAL(clicked(bool)),btn_exit2,SLOT(hide()));
+        connect(btn_restart,SIGNAL(clicked(bool)),this,SLOT(hidescore()));
+        connect(btn_restart,SIGNAL(clicked(bool)),this,SLOT(on_click_restart()));
+        connect(btn_restart,SIGNAL(clicked(bool)),taiko,SLOT(SetKeyMove()));
+        connect(btn_restart,SIGNAL(clicked(bool)),taiko,SLOT(Start()));
+        connect(btn_restart,SIGNAL(clicked(bool)),this,SLOT(clock()));
+
         //show the score
         playscorefont = new QFont;
         playscorefont->setFamily("Calibri");
@@ -120,6 +146,8 @@ void MainWindow::timer_timeout()
     else if(clocknumber<0)
     {
         taiko->removeItem(clocktext);
+        bgm->stop();
+
     }
     update();
 }
@@ -128,6 +156,3 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-
-
