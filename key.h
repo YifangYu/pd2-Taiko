@@ -10,8 +10,6 @@ public:
     int randomcase;
     int type;
 
-private slots:
-
 };
 
 #endif // KEY_H

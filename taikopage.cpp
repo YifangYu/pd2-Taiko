@@ -11,6 +11,7 @@ taikopage::taikopage(QWidget *parent) : mainpointer(parent)
     bg.load(":/new/img/Title.jpg");
     bg = bg.scaled(768,576);
     this->setBackgroundBrush(bg);
+    hit = new QSound(":/new/img/hit.wav");
 }
 
 void taikopage::setHitpoint()
@@ -26,23 +27,38 @@ void taikopage::keyPressEvent(QKeyEvent *event)
     {
         case Qt::Key_W:
             if(check_if_hit()==1)
-            score++;
+            {
+                score++;
+                hit->play();
+            }
         break;
 
         case Qt::Key_A:
             if(check_if_hit()==2)
-            score++;
+            {
+                score++;
+                hit->play();
+            }
         break;
 
         case Qt::Key_D:
             if(check_if_hit()==3)
-            score++;
+            {
+                score++;
+                hit->play();
+            }
         break;
 
         case Qt::Key_S:
             if(check_if_hit()==0)
-            score++;
+            {
+                score++;
+                hit->play();
+            }
         break;
+
+        case Qt::Key_B:
+            qDebug() << "Hit";
     }
 }
 
@@ -51,7 +67,7 @@ int taikopage::check_if_hit()
 QList<QGraphicsItem *> hit_list = this->collidingItems(hitpoint);
     foreach (QGraphicsItem *i, hit_list) {
         Key *ifhit = dynamic_cast<Key *>(i);
-        if(ifhit->X_pos < 230 && ifhit->X_pos > 190)
+        if(ifhit->X_pos < 240 && ifhit->X_pos > 190)
             if(ifhit->type==1)
             {
                 return 1;
@@ -90,7 +106,7 @@ void taikopage::Start()
             keypattern[i]=randomcase;
             item[i] = new Key(randomcase);
             addItem(item[i]);
-            int position = 15+ rand () % 50;
+            int position = 10 + rand () % 40;
             if (i==0)
                 showtime[i]=position;
             else
@@ -103,7 +119,7 @@ void taikopage::Start()
  }
 
 void taikopage::movekey(){
-    qDebug()<<keytime;
+    //qDebug()<<keytime;
     for (int i=0;i<50;i++){
         if(item[i]!=NULL)
         {
@@ -111,7 +127,12 @@ void taikopage::movekey(){
             {
                 item[i]->X_pos-=5;
                 item[i]->setPos(item[i]->X_pos,145);
-                if(item[i]->X_pos <198)
+                if(item[i]->X_pos<500)
+                {
+                    item[i]->X_pos-=10;
+                    item[i]->setPos(item[i]->X_pos,145);
+                }
+                if(item[i]->X_pos <190)
                 {
                     this->removeItem(item[i]);
                     delete item[i];

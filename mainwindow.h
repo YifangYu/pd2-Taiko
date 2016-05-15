@@ -39,7 +39,6 @@ private:
     QFont *playscorefont;
     QString *playscoretext;
     int clocknumber;
-    QKeyEvent *W;
     QKeyEvent *keyevent;
     QSound *bgm;
 

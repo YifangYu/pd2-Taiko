@@ -14,5 +14,6 @@
         <file>red.jpg</file>
         <file>hitpoint.jpg</file>
         <file>exit.png</file>
+        <file>hit.wav</file>
     </qresource>
 </RCC>

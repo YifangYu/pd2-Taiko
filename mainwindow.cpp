@@ -34,20 +34,15 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(btn_start,SIGNAL(clicked(bool)),btn_start,SLOT(hide()));
     connect(btn_start,SIGNAL(clicked(bool)),btn_exit,SLOT(hide()));
     connect(btn_start,SIGNAL(clicked(bool)),taiko,SLOT(SetKeyMove()));
+    connect(btn_start,SIGNAL(clicked(bool)),this,SLOT(on_click_restart()));
 
     /*keypressevent
     W = new QKeyEvent();
     if(W->key()== Qt::Key_W)
         std::cout<<"OK!!!"<<std::endl;*/
 
-
     //set music
     bgm = new QSound(":/new/img/Music.wav");
-    bgm->play();
-
-
-
-
 }
 
 void MainWindow::clock()

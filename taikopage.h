@@ -30,8 +30,6 @@ public:
     int check_if_hit();
     Key *hitpoint;
 
-
-
 signals:
     void send();
 
@@ -40,11 +38,11 @@ public slots:
     void SetKeyMove();
     void movekey();
 private:
-    QPushButton *W;
     QWidget *mainpointer;
     Key *item[50];
     Key *ifhit;
     Key *test;
+    QSound *hit;
 
 
     int keytime; //when the key should show
