@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "taikopage.h"
 #include <QTimer>
-//#include <QSound>
+#include <QSound>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -43,8 +43,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     //set music
-    //bgm = new QSound(":/new/img/Music.wav");
-    //bgm->play();
+    bgm = new QSound(":/new/img/Music.wav");
+    bgm->play();
 
 
 
@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::clock()
 {
     //set time
-    clocknumber = 30;
+    clocknumber = 10;
     clockfont = new QFont;
     clockfont->setFamily("Calibri");
     clockfont->setPixelSize(50);
@@ -81,8 +81,45 @@ void MainWindow::timer_timeout()
     {
         QImage scorepage;
         scorepage.load(":/new/img/score.jpg");
-        scorepage = bg.scaled(768,576);
-        this->setBackgroundBrush(scorepage);
+        scorepage = scorepage.scaled(768,576);
+        taiko->setBackgroundBrush(scorepage);
+        taiko->removeItem(taiko->hitpoint);
+        taiko->hitpoint = NULL;
+
+
+        //set exit
+        btn_exit2 = new QPushButton(this);
+        btn_exit2->setGeometry(490,25,100,40);
+        btn_exit2->setIcon(QIcon(":/new/img/exit.png"));
+        btn_exit2->setIconSize(QSize(100,40));
+        connect(btn_exit2,SIGNAL(clicked()),QApplication::instance(),SLOT(quit()));
+        btn_exit2->show();
+        //set restart
+        btn_restart = new QPushButton(this);
+        btn_restart->setGeometry(350,25,100,40);
+        btn_restart->setIcon(QIcon(":/new/img/restart-01.png"));
+        btn_restart->setIconSize(QSize(100,40));
+        btn_restart->show();
+        //show the score
+        playscorefont = new QFont;
+        playscorefont->setFamily("Calibri");
+        playscorefont->setPixelSize(50);
+
+            playscore = new QGraphicsTextItem;
+            playscore->setPos(350,210);
+            playscore->setFont(*playscorefont);
+
+        taiko->addItem(playscore);
+
+        QString playscoretext;
+        int intscore = taiko->score;
+        playscoretext=QString::number(intscore);
+        playscore->setPlainText(playscoretext);
+
+    }
+    else if(clocknumber<0)
+    {
+        taiko->removeItem(clocktext);
     }
     update();
 }
@@ -93,9 +130,4 @@ MainWindow::~MainWindow()
 }
 
 
-
-void MainWindow::check_if_hit()
-{
-
-}
 

@@ -27,25 +27,21 @@ void taikopage::keyPressEvent(QKeyEvent *event)
         case Qt::Key_W:
             if(check_if_hit()==1)
             score++;
-            qDebug()<<score;
         break;
 
         case Qt::Key_A:
             if(check_if_hit()==2)
             score++;
-            qDebug()<<score;
         break;
 
         case Qt::Key_D:
             if(check_if_hit()==3)
             score++;
-            qDebug()<<score;
         break;
 
         case Qt::Key_S:
             if(check_if_hit()==0)
             score++;
-            qDebug()<<score;
         break;
     }
 }
@@ -55,7 +51,7 @@ int taikopage::check_if_hit()
 QList<QGraphicsItem *> hit_list = this->collidingItems(hitpoint);
     foreach (QGraphicsItem *i, hit_list) {
         Key *ifhit = dynamic_cast<Key *>(i);
-        if(ifhit->X_pos < 220 && ifhit->X_pos > 190)
+        if(ifhit->X_pos < 230 && ifhit->X_pos > 190)
             if(ifhit->type==1)
             {
                 return 1;
@@ -72,8 +68,6 @@ QList<QGraphicsItem *> hit_list = this->collidingItems(hitpoint);
             {
                 return 0;
             }
-        qDebug()<< ifhit;
-
         }
 }
 
@@ -90,20 +84,20 @@ void taikopage::Start()
     setHitpoint();
     srand (time(NULL));
     for (int i=0;i<50;i++){
-        int randomcase = rand ()%4;
-        keypattern[i]=randomcase;
-        item[i] = new Key(randomcase);
-        addItem(item[i]);
-        timer = new QTimer(mainpointer);
-        int position =15+ rand () % 50;
-        if (i==0)
-            showtime[i]=position;
-        else
-            showtime[i]=showtime[i-1]+position;
+            int randomcase = rand ()%4;
+            keypattern[i]=randomcase;
+            item[i] = new Key(randomcase);
+            addItem(item[i]);
+            timer = new QTimer(mainpointer);
+            int position =15+ rand () % 50;
+            if (i==0)
+                showtime[i]=position;
+            else
+                showtime[i]=showtime[i-1]+position;
     }
     connect(timer,SIGNAL(timeout()),this,SLOT(movekey()));
     connect(timer,SIGNAL(timeout()),this,SLOT(key_timeout()));
-    timer->start(30);
+    timer->start(25);
  }
 
 void taikopage::movekey(){
@@ -119,6 +113,11 @@ void taikopage::movekey(){
                     this->removeItem(item[i]);
                     item[i]=NULL;
                 }
+            }
+            else if(keytime>250)
+            {
+                this->removeItem(item[i]);
+                item[i]=NULL;
             }
         }
     }

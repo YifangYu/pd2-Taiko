@@ -13,5 +13,6 @@
         <file>score.jpg</file>
         <file>red.jpg</file>
         <file>hitpoint.jpg</file>
+        <file>exit.png</file>
     </qresource>
 </RCC>

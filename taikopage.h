@@ -27,6 +27,8 @@ public:
     void keyPressEvent(QKeyEvent *event);
     int score = 0;
     int check_if_hit();
+    Key *hitpoint;
+
 
 signals:
     void send();
@@ -39,7 +41,6 @@ private:
     QPushButton *W;
     QWidget *mainpointer;
     Key *item[50];
-    Key *hitpoint;
     Key *ifhit;
     Key *test;
 
